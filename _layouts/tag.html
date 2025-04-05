@@ -1,0 +1,40 @@
+<!-- Tag Layout Start -->
+
+<!doctype html>
+<html lang="{{site.lang}}">
+
+  {% include head.html %}
+
+  <body>
+    {% include navigation.html %}
+
+    <section class="container content-section text-center">
+      <div class="row">
+        <div class="col-md-10 offset-md-1">
+
+          {% assign tag = page.title %}
+
+          <h3 id="#{{ tag }}">#{{ tag }}</h3>
+
+          <div>
+            {% for post in site.posts %} 
+              {% for t in post.tags %} 
+                {% if t == tag %} 
+                  {% include post-list.html%} 
+                {% endif %} 
+              {% endfor %} 
+            {% endfor %}
+          </div>
+          <h5 class="pt-5"><a href="{{site.url}}/tags">See other tags</a></h4>
+        </div>
+      </div>
+    </section>
+
+    {% include footer.html %} 
+
+    {% include js.html %}
+
+  </body>
+</html>
+
+<!-- Tag Layout End -->

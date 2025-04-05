@@ -1,0 +1,23 @@
+<!-- Social Buttons Start -->
+
+<ul class="list-inline social-buttons">
+  {% for network in site.social %} 
+    {% if network.icon == "rss" %}
+    <li class="list-inline-item">
+      <a href="{{ network.url }}" target="_blank">
+        <i class="fas fa-{{ network.icon }}"></i>
+        <!-- Using 'fas' for FontAwesome Solid -->
+      </a>
+    </li>
+    {% else %}
+    <li class="list-inline-item">
+      <a href="{{ network.url }}" target="_blank">
+        <i class="fab fa-{{ network.icon }}"></i>
+        <!-- Using 'fab' for FontAwesome Brands -->
+      </a>
+    </li>
+    {% endif %} 
+  {% endfor %}
+</ul>
+
+<!-- Social Buttons End -->

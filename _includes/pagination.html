@@ -1,0 +1,25 @@
+<!-- Pagination Links Start -->
+
+<nav class="pt-5">
+  <ul class="pagination justify-content-center">
+    {% if paginator.previous_page %}
+    <li class="page-item">
+      <a href="{{site.url}}/{{ paginator.previous_page_path }}" aria-label="Previous">
+        <span aria-hidden="true">&laquo; Newer Posts</span>
+      </a>
+    </li>
+    {% endif %} {% if paginator.previous_page and paginator.next_page %}
+    <li class="page-item disabled">
+      <span>|</span>
+    </li>
+    {% endif %} {% if paginator.next_page %}
+    <li class="page-item">
+      <a href="{{site.url}}/{{ paginator.next_page_path }}" aria-label="Next">
+        <span aria-hidden="true">Older Posts &raquo;</span>
+      </a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+
+<!-- Pagination Links End -->

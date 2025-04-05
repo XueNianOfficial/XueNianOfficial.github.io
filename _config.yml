@@ -1,55 +1,135 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-#
-# If you need help with YAML syntax, here are some quick references for you:
-# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
-# https://learnxinyminutes.com/docs/yaml/
-#
 # Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
 
-title: Your awesome title
-email: your-email@example.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+# NB! Set your site's url, otherwise nothing will work
+url: "https://XueNian.online"
 
-# Build settings
-theme: minima
+# Google tracking id
+google-tracking-id: "UA-XXXXXXXX-X"
+
+#############
+# HTML Head #
+#############
+
+lang: "zh_CN"
+author: "雪年"
+title: "雪年的小窝"
+description: "雪年的小窝"
+keywords: "雪年"
+favicon: "/img/favicon.ico"
+################
+# Header layout#
+################
+black-favicon: "/img/black-lab-glass.ico"
+background-img: "intro-bg.jpg"
+
+##############################
+# Dynamic Text on the Header #
+##############################
+
+quote: "Where’s your will to be weird?"
+me-img: "/img/jetpacktocat.png"
+
+# To use github profile pic uncomment the following line and replace 'user_name'
+# with your github user name.
+
+# me-img: "https://github.com/user_name.png?size=500"
+
+# To use gravatar profile pic uncomment the following line and replace 'email_hash'
+# with your gravatar profile email hash.
+# You can create the email hash by using an online tool like 'http://www.md5hashgenerator.com/'
+# just enter your email and it will generate the hash.
+
+# me-img: "https://www.gravatar.com/avatar/email_hash?s=500"
+
+#######
+# Blog #
+########
+
+post-preview-words: 96
+paginate: 5
+email-share: True
+fb-share: True
+twitter-share: True
+linkedin-share: True
+reddit-share: True
+tumblr-share: True
+pinterest-share: True
+pocket-share: True
+vkontakte-share: True
+
+disqus-shortname: "personal-jekyll-theme"
+
+############
+# Timeline #
+############
+
+events:
+  - image: "/img/timeline/spidertocat.png"
+    date: "September 2013 - Today"
+    description: "Saving the neighborhood!"
+  - image: "/img/timeline/baracktocat.jpg"
+    date: "September 2007 - August 2013"
+    description: "Started coding"
+
+# First image of the Timeline
+timeline-img: "/img/timeline/default.png"
+
+###########
+# Contact #
+###########
+
+email: "XueNian2025@outlook.com"
+# Set a url pointing to your publish PGP Public Key here, and it will appear in the Contact section
+pgp: False
+
+################
+# Author Blurb #
+################
+
+# The author blurb goes underneath blog posts.
+# This works best when your author blurb image has a transparent background, or matches your site background color.
+
+# if the author_blurb is not set, then this feature is skipped
+author_blurb:
+  "雪年是一只可爱小狼"
+author_blurb_image: "/img/author.png"
+
+##################
+# Social Buttons #
+##################
+
+social:
+  - icon: "github"
+    url: "https://github.com/XueNianOfficial"
+  - icon: "linkedin-in"
+    url: "https://www.linkedin.com"
+  - icon: "x-twitter"
+    url: "https://twitter.com/"
+  - icon: "rss"
+    url: "https://github.com/XueNianOfficial"
+
+# NB! Tread carefully if you want to change the variables below this point!
+
+# Sections shown in the index page
+pages_list:
+  About: "about"
+  Blog: "latest-post"
+  Timeline: "timeline"
+  Contact: "contact"
+# Exclusion list from the generated _site
+exclude:
+  - LICENSE
+  - README.md
+  - CONTRIBUTING
+  - CONTRIBUTORS
+  - scripts
+  - Dockerfile
+  - docker-compose.yml
+# Pagination path
+paginate_path: "blog/page:num/"
+# Enable minification SASS
+sass:
+  style: compressed
 plugins:
-  - jekyll-feed
-
-# Exclude from processing.
-# The following items will not be processed, by default.
-# Any item listed under the `exclude:` key here will be automatically added to
-# the internal "default list".
-#
-# Excluded items can be processed by explicitly listing the directories or
-# their entries' file path in the `include:` list.
-#
-# exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+  - jekyll-paginate
+  - jekyll-spaceship

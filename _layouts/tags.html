@@ -1,0 +1,36 @@
+<!-- Tag Layout Start -->
+
+<!doctype html>
+<html lang="{{ site.lang }}">
+
+  {% include head.html %}
+
+  <body>
+    {% include navigation.html %}
+
+    <section class="container content-section text-center">
+      <div class="row">
+        <div class="col-md-10 offset-md-1">
+          {% assign tag = page.title %}
+
+          <h3 id="#tags">#Tags</h3>
+          <ul style="list-style-type: none;display: flex;flex-direction: column;align-items: center;padding: 0">
+            {% assign sorted_tags = site.tags | sort %}
+            {% for tag in sorted_tags %}
+              <li>
+                <h5><a href="{{ site.baseurl }}/tags/{{ tag[0] }}.html">{{ tag[0] }}</a> ({{ tag[1].size }} post{% if tag[1].size > 1 %}s{% endif %})</h4>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    {% include footer.html %} 
+
+    {% include js.html %}
+
+  </body>
+</html>
+
+<!-- Tag Layout End -->
