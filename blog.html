@@ -1,6 +1,0 @@
----
-section-type: latest-post
-title: Blog
----
-
-## Blog
