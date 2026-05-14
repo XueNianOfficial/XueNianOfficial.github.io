@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="雪年的Furry个人主页 — 画画、摸鱼、快乐每一天 🐾">
+    <meta name="theme-color" content="#4A90D9">
+    <title>雪年的小窝 🐾</title>
+
+    <!-- ========== 样式表 ========== -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- ========== 预加载关键资源，减少 LCP ========== -->
+    <link rel="preload" as="image" href="res/images/立绘.png">
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- 加载动画遮罩：页面首次打开时显示，加载完成后淡出消失           -->
+    <!-- ============================================================ -->
+    <div id="loading-screen" aria-hidden="true">
+        <div class="loader">
+            <!-- 跳动的爪印加载动画 -->
+            <svg class="loader-paw" viewBox="0 0 64 64" width="48" height="48">
+                <circle cx="22" cy="20" r="8" fill="currentColor"/>
+                <circle cx="42" cy="20" r="8" fill="currentColor"/>
+                <circle cx="18" cy="38" r="9" fill="currentColor"/>
+                <circle cx="32" cy="30" r="11" fill="currentColor"/>
+                <circle cx="46" cy="38" r="9" fill="currentColor"/>
+            </svg>
+            <p class="loader-text">正在嗅嗅周围...</p>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 粒子飘落画布：固定全屏，pointer-events:none 不阻挡交互       -->
+    <!-- ============================================================ -->
+    <canvas id="particles-canvas" aria-hidden="true"></canvas>
+
+    <!-- ============================================================ -->
+    <!-- 顶部导航栏：sticky 定位，毛玻璃效果                           -->
+    <!-- ============================================================ -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="主导航">
+        <div class="nav-container">
+            <!-- Logo / 网站名 -->
+            <a href="#" class="nav-logo" aria-label="回到顶部">
+                <img src="res/images/logo.png" alt="Logo" class="nav-logo-img" width="36" height="36">
+                <span class="nav-logo-text">雪年的小窝</span>
+            </a>
+
+            <!-- 桌面端导航菜单 -->
+            <ul class="nav-menu" id="nav-menu" role="menubar">
+                <li role="none"><a href="#about" role="menuitem">🐾 关于我</a></li>
+                <li role="none"><a href="#gallery" role="menuitem">🖼️ 画廊</a></li>
+                <li role="none"><a href="#blog" role="menuitem">📝 动态</a></li>
+                <li role="none"><a href="#links" role="menuitem">🔗 友链</a></li>
+            </ul>
+
+            <!-- 右侧工具栏：主题切换 + 汉堡菜单 -->
+            <div class="nav-actions">
+                <!-- 暗色主题切换按钮 -->
+                <button class="theme-toggle" id="theme-toggle"
+                        aria-label="切换暗色主题" title="切换主题">
+                    <!-- 太阳图标（浅色模式显示） -->
+                    <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <!-- 月亮图标（暗色模式显示） -->
+                    <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+
+                <!-- 移动端汉堡菜单按钮（通过隐藏 checkbox 控制） -->
+                <input type="checkbox" id="menu-toggle" class="menu-toggle-input" aria-label="打开菜单">
+                <label for="menu-toggle" class="menu-toggle-label" aria-hidden="true">
+                    <span></span><span></span><span></span>
+                </label>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================ -->
+    <!-- 主内容区域                                                  -->
+    <!-- ============================================================ -->
+    <main>
+        <!-- ---------- Hero 首屏区域 ---------- -->
+        <header class="hero" id="hero">
+            <!-- CSS 伪元素绘制兽耳装饰 -->
+            <div class="hero-content">
+                <div class="hero-illustration">
+                    <!-- 角色立绘主视觉 -->
+                    <img src="res/images/立绘.png" alt="雪年的立绘" class="hero-img" width="400" height="auto">
+                    <!-- 浮动爪印装饰 -->
+                    <div class="floating-paws" aria-hidden="true">
+                        <span class="fp fp-1">🐾</span>
+                        <span class="fp fp-2">🐾</span>
+                        <span class="fp fp-3">🐾</span>
+                    </div>
+                </div>
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        你好，我是<span class="highlight">雪年</span> <span class="wave">🖊</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        一只笨笨的毛茸茸
+                    </p>
+                    <div class="hero-cta">
+                        <a href="#about" class="btn btn-primary">了解更多</a>
+                        <a href="#gallery" class="btn btn-outline">查看作品</a>
+                    </div>
+                </div>
+            </div>
+            <!-- 向下滚动提示 -->
+            <div class="scroll-hint" aria-hidden="true">
+                <span>向下滚动</span>
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="7 13 12 18 17 13"/><polyline points="7 6 12 11 17 6"/>
+                </svg>
+            </div>
+        </header>
+
+        <!-- ---------- 关于我 ---------- -->
+        <section class="section" id="about" aria-labelledby="about-heading">
+            <div class="section-container">
+                <h2 class="section-title" id="about-heading">🐾 关于我</h2>
+                <div class="about-grid">
+                    <!-- 头像区 -->
+                    <div class="about-avatar-wrapper">
+                        <div class="about-avatar-frame">
+                            <img src="res/images/头像.png" alt="雪年的头像" class="about-avatar" width="180" height="180">
+                            <!-- 头像周围的爪印装饰环 -->
+                            <div class="avatar-paw-ring" aria-hidden="true"></div>
+                        </div>
+                    </div>
+                    <!-- 文字介绍 -->
+                    <div class="about-text">
+                        <h3>雪年 <span class="text-muted">/ XueNian</span></h3>
+                        <p>
+                            这里是<b>雪年</b>的小窝！
+                        </p>
+                        <p>
+                            主业是摸鱼，偶尔写写代码。喜欢可爱的事物，
+                        </p>
+                        <p>
+                            兴趣方向：<span class="tag">C++</span> <span class="tag">Python</span>
+                            <span class="tag">嵌入式</span> <span class="tag">3d建模</span>
+                        </p>
+                        <!-- 社交图标行 -->
+                        <div class="social-row">
+                            <span class="social-label">找我玩：</span>
+                            <a href="#" class="social-icon" aria-label="Twitter" title="Twitter / X">
+                                <!-- Twitter X 图标 SVG -->
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                                </svg>
+                            </a>
+                            <a href="https://space.bilibili.com/669819482" class="social-icon" aria-label="Bilibili" title="Bilibili">
+                                <!-- B站图标 SVG -->
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                    <path d="M17.5 3.5h-1.8l-2.1 4.2-2.1-4.2H9.7L7.9 7.5H6.3c-1.5 0-2.8 1.3-2.8 2.8v7.5c0 1.5 1.3 2.8 2.8 2.8h11.2c1.5 0 2.8-1.3 2.8-2.8v-7.5c0-1.5-1.3-2.8-2.8-2.8zm-8.4 8h-1.8v-4h1.8zm4.2 0h-1.8v-4h1.8z"/>
+                                </svg>
+                            </a>
+                            <a href="https://github.com/XueNianOfficial" class="social-icon" aria-label="GitHub" title="GitHub">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------- 作品画廊 ---------- -->
+        <section class="section section-alt" id="gallery" aria-labelledby="gallery-heading">
+            <div class="section-container">
+                <h2 class="section-title" id="gallery-heading">🖼️</h2>
+                <p class="section-desc">点击可以放大查看哦～</p>
+
+                <!-- 画廊网格 -->
+                <div class="gallery-grid" id="gallery-grid">
+                    <!-- 作品卡片：data-gallery-index 用于灯箱定位 -->
+                    <div class="gallery-item reveal" data-gallery-index="0">
+                        <div class="gallery-card">
+                            <img src="res/images/稿件1.png" alt="是可爱的江河" class="gallery-img" loading="lazy">
+                            <div class="gallery-overlay">
+                                <span class="gallery-zoom-icon">🔍</span>
+                                <span class="gallery-caption">稿件</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item reveal" data-gallery-index="1">
+                        <div class="gallery-card">
+                            <img src="res/images/立绘.png" alt="角色立绘" class="gallery-img" loading="lazy">
+                            <div class="gallery-overlay">
+                                <span class="gallery-zoom-icon">🔍</span>
+                                <span class="gallery-caption">角色立绘</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 预留更多作品卡片位置 -->
+                    <div class="gallery-item gallery-placeholder reveal" data-gallery-index="2">
+                        <div class="gallery-card gallery-card-empty">
+                            <div class="gallery-empty-content">
+                                <span class="gallery-empty-icon">✨</span>
+                                <span>更多作品绘制中...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------- 博客动态 ---------- -->
+        <section class="section" id="blog" aria-labelledby="blog-heading">
+            <div class="section-container">
+                <h2 class="section-title" id="blog-heading">📝 最新动态</h2>
+                <p class="section-desc">记录摸鱼日常</p>
+                <!-- 动态列表由 blog.js 动态渲染到此容器 -->
+                <div class="blog-timeline" id="blog-container">
+                    <!-- JS 动态填充 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------- 友情链接 ---------- -->
+        <section class="section section-alt" id="links" aria-labelledby="links-heading">
+            <div class="section-container">
+                <h2 class="section-title" id="links-heading">🔗 友情链接</h2>
+                <p class="section-desc">来看看我的好朋友们吧～</p>
+                <div class="links-grid">
+                    <!-- 友链卡片 -->
+                    <a href="https://blog.lie-kong.top" class="link-card reveal" target="_blank" rel="noopener">
+                        <div class="link-card-avatar"><img src="https://avatars.githubusercontent.com/u/109675857?v=4" alt="猎空" class="gallery-img" loading="lazy"></div>
+                        <div class="link-card-info">
+                            <span class="link-card-name">猎空のBlog  </span>
+                            <span class="link-card-desc">一只狼龙的仓库  </span>
+                        </div>
+                    </a>
+                    <a href="#" class="link-card reveal" target="_blank" rel="noopener">
+                        <div class="link-card-avatar">🐺</div>
+                        <div class="link-card-info">
+                            <span class="link-card-name">好友 B 的画廊</span>
+                            <span class="link-card-desc">超棒的 furry 艺术家</span>
+                        </div>
+                    </a>
+                    <a href="#" class="link-card reveal" target="_blank" rel="noopener">
+                        <div class="link-card-avatar">🐱</div>
+                        <div class="link-card-info">
+                            <span class="link-card-name">好友 C 的博客</span>
+                            <span class="link-card-desc">技术宅 + 毛茸茸爱好者</span>
+                        </div>
+                    </a>
+                    <a href="#" class="link-card reveal" target="_blank" rel="noopener">
+                        <div class="link-card-avatar">🐰</div>
+                        <div class="link-card-info">
+                            <span class="link-card-name">好友 D 的日常</span>
+                            <span class="link-card-desc">可爱的兔子画师</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============================================================ -->
+    <!-- 页脚                                                        -->
+    <!-- ============================================================ -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-main">
+                <p class="footer-text">🐾 雪年的小窝</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Twitter/X">Twitter</a>
+                    <span class="footer-divider">·</span>
+                    <a href="https://space.bilibili.com/669819482" aria-label="Bilibili">Bilibili</a>
+                    <span class="footer-divider">·</span>
+                    <a href="https://github.com/XueNianOfficial" aria-label="GitHub">GitHub</a>
+                </div>
+            </div>
+            <p class="footer-copy">&copy; 2026 雪年 XueNian.  proudly hosted on GitHub Pages 🐾</p>
+        </div>
+    </footer>
+
+    <!-- ============================================================ -->
+    <!-- 回到顶部按钮                                                -->
+    <!-- ============================================================ -->
+    <button class="back-to-top" id="back-to-top" aria-label="回到顶部" title="回到顶部">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"/>
+        </svg>
+    </button>
+
+    <!-- ============================================================ -->
+    <!-- 图片灯箱弹窗：点击画廊图片时显示                              -->
+    <!-- ============================================================ -->
+    <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="图片预览">
+        <div class="lightbox-backdrop"></div>
+        <button class="lightbox-close" aria-label="关闭">✕</button>
+        <button class="lightbox-prev" aria-label="上一张">‹</button>
+        <button class="lightbox-next" aria-label="下一张">›</button>
+        <div class="lightbox-content">
+            <img src="" alt="" class="lightbox-img" id="lightbox-img">
+            <p class="lightbox-caption" id="lightbox-caption"></p>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- JavaScript 脚本（按依赖顺序加载）                            -->
+    <!-- ============================================================ -->
+    <script src="js/main.js" defer></script>
+    <script src="js/animations.js" defer></script>
+    <script src="js/gallery.js" defer></script>
+    <script src="js/blog.js" defer></script>
+</body>
+</html>

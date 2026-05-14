@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="页面走丢了 — 雪年的小窝 404">
+    <meta name="theme-color" content="#4A90D9">
+    <title>404 · 页面走丢了 🐾 雪年的小窝</title>
+
+    <!-- 共用主样式表 -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- 404 页面专属样式 -->
+    <style>
+        /* ============================================================
+         * 404 页面专属样式
+         * ============================================================ */
+        .not-found-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: var(--spacing-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 背景爪印纹理 — 使用 CSS 径向渐变模拟浅浅的爪印 */
+        .not-found-page::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                /* 爪印用多个径向渐变模拟 */
+                radial-gradient(circle at 30% 20%, var(--color-primary) 1px, transparent 1px),
+                radial-gradient(circle at 30% 20%, var(--color-primary) 1px, transparent 1px),
+                radial-gradient(circle at 70% 60%, var(--color-primary) 1px, transparent 1px),
+                radial-gradient(circle at 80% 30%, var(--color-primary) 1px, transparent 1px);
+            background-size: 200px 200px;
+            opacity: 0.06;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .nf-content {
+            position: relative;
+            z-index: 1;
+            max-width: 500px;
+        }
+
+        /* 404 大数字 */
+        .nf-code {
+            font-size: clamp(5rem, 15vw, 10rem);
+            font-weight: 900;
+            color: var(--color-primary);
+            line-height: 1;
+            margin-bottom: var(--spacing-md);
+            /* 文字阴影增加层次感 */
+            text-shadow: 0 4px 20px rgba(74,144,217,0.2);
+            animation: nf-float 3s ease-in-out infinite;
+        }
+        @keyframes nf-float {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(-8px); }
+        }
+
+        /* 迷失的小动物图标 */
+        .nf-icon {
+            font-size: clamp(3rem, 8vw, 5rem);
+            margin-bottom: var(--spacing-md);
+            animation: nf-spin 4s ease-in-out infinite;
+        }
+        @keyframes nf-spin {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25%      { transform: rotate(-5deg) scale(1.1); }
+            75%      { transform: rotate(5deg) scale(1.05); }
+        }
+
+        /* 标题 */
+        .nf-title {
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        /* 描述文字 */
+        .nf-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        /* 返回按钮 */
+        .nf-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: 0.8rem 2rem;
+            background-color: var(--color-primary);
+            color: #fff !important;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 1.05rem;
+            box-shadow: 0 4px 14px rgba(74,144,217,0.35);
+            transition: all var(--transition-fast);
+        }
+        .nf-btn:hover {
+            background-color: var(--color-primary-dark);
+            box-shadow: 0 6px 20px rgba(74,144,217,0.45);
+            transform: translateY(-2px);
+            color: #fff !important;
+        }
+
+        /* 底部装饰爪印 */
+        .nf-paws {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            opacity: 0.15;
+            font-size: 1.5rem;
+            z-index: 1;
+        }
+        .nf-paws span {
+            animation: paw-step 2s ease-in-out infinite;
+        }
+        .nf-paws span:nth-child(2) { animation-delay: 0.3s; }
+        .nf-paws span:nth-child(3) { animation-delay: 0.6s; }
+        .nf-paws span:nth-child(4) { animation-delay: 0.9s; }
+        @keyframes paw-step {
+            0%, 100% { transform: translateY(0); opacity: 0.3; }
+            50%      { transform: translateY(-8px); opacity: 0.6; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================================ -->
+    <!-- 404 页面主体                                                 -->
+    <!-- ============================================================ -->
+    <main class="not-found-page" role="main">
+        <div class="nf-content">
+            <!-- 迷失图标：一只挠头的小动物 -->
+            <div class="nf-icon" aria-hidden="true">🦊💦</div>
+
+            <!-- 404 大数字 -->
+            <p class="nf-code">404</p>
+
+            <!-- 趣味文案 -->
+            <h1 class="nf-title">哎呀，页面走丢了！</h1>
+            <p class="nf-desc">
+                小狐狸在森林里迷路了，找不到你要的页面呢...<br>
+                可能这个页面被叼走了，或者你输入的地址有误喵～
+            </p>
+
+            <!-- 返回首页按钮 -->
+            <a href="/" class="nf-btn">
+                🏠 回到安全的小窝
+            </a>
+        </div>
+
+        <!-- 底部装饰爪印 -->
+        <div class="nf-paws" aria-hidden="true">
+            <span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span>
+        </div>
+    </main>
+
+    <!-- ============================================================ -->
+    <!-- 主题初始化脚本（404 页面独立，不依赖 main.js）              -->
+    <!-- ============================================================ -->
+    <script>
+        ;(function () {
+            'use strict';
+            // 读取保存的主题偏好
+            var theme = localStorage.getItem('theme');
+            if (!theme) {
+                // 跟随系统偏好
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    theme = 'dark';
+                } else {
+                    theme = 'light';
+                }
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+
+            // 更新 meta theme-color
+            var meta = document.querySelector('meta[name="theme-color"]');
+            if (meta) {
+                meta.setAttribute('content', theme === 'dark' ? '#1A1A2E' : '#4A90D9');
+            }
+        })();
+    </script>
+</body>
+</html>
