@@ -85,7 +85,7 @@ npx http-server -p 8000
 
 ## 📝 License
 
-MIT — 自由使用、修改和分发。
+Commons Clause
 
 ---
 
